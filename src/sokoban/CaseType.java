@@ -4,5 +4,6 @@ public enum CaseType {
 WALL,
 BOX,
 TARGET,
-PLAYERPOSITION
+PLAYERPOSITION,
+EMPTY
 }
