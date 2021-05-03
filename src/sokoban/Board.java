@@ -12,6 +12,7 @@ public class Board {
 	public Board(int row, int col){
 		this.setRow(row);
 		this.setCol(col);
+		this.board = createBoard();
 	}
 
 	public int getRow() {
