@@ -90,31 +90,31 @@ public class Board {
 			}
 		}
 		else {
-			for(int i = x;i<col;i++) {
+			for(int i = y;i<col;i++) {
 				board.get(x).get(i).setType(CaseType.WALL);
 			}
 		}
 	}
 	
 	public void printBoard() {
-		String charToPrint = ".";
+		String charToPrint = ". ";
 		for(int i=0;i<row;i++) {
 			for(int j=0;j<col;j++) {
 				switch(getCaseAt(i,j).getType()) {
 				case WALL :
-					charToPrint = "#";
+					charToPrint = "# ";
 					break;
 				case TARGET : 
-					charToPrint = "x";
+					charToPrint = "x ";
 					break;
 				case BOX : 
-					charToPrint = "C";
+					charToPrint = "C ";
 					break;
 				case PLAYERPOSITION : 
-					charToPrint = "P";
+					charToPrint = "P ";
 					break;
 				default:
-					charToPrint = ".";
+					charToPrint = ". ";
 					break;
 				
 				}

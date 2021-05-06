@@ -13,8 +13,9 @@ public class Player {
 		b.addTarget(3,1);
 		b.addTarget(3,2);
 		b.setPosition(3,4);
+		
+		
 		b.printBoard();
-
 	}
 
 }
