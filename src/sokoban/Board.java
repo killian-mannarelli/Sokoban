@@ -62,5 +62,35 @@ public class Board {
 	public void addTarget(int x, int y) {
 		board.get(x).get(y).setType(CaseType.TARGET);
 	}
+	
+	public void setPosition(int x, int y) {
+		board.get(x).get(y).setType(CaseType.PLAYERPOSITION);
+	}
+	
+	public void addHorizontalWall(int x, int y, int walllength) {
+		if(x+walllength < row) {
+			for(int i = x;i<x+walllength;i++) {
+				board.get(i).get(y).setType(CaseType.WALL);
+			}
+		}
+		else {
+			for(int i = x;i<row;i++) {
+				board.get(i).get(y).setType(CaseType.WALL);
+			}
+		}
+	}
+	public void addVerticalWall(int x, int y, int walllength) {
+		if(y+walllength < col) {
+			for(int i = y;i<y+walllength;i++) {
+				board.get(x).get(i).setType(CaseType.WALL);
+			}
+		}
+		else {
+			for(int i = x;i<col;i++) {
+				board.get(x).get(i).setType(CaseType.WALL);
+			}
+		}
+	}
+	
 
 }
