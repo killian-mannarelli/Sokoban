@@ -39,6 +39,10 @@ public class Board {
 		this.board = board;
 	}
 	
+	public Case getCaseAt(int x, int y) {
+		return board.get(x).get(y);
+	}
+	
 	private ArrayList<ArrayList<Case>> createBoard(){
 		ArrayList<ArrayList<Case>> boardtocreate = new ArrayList<ArrayList<Case>>();
 		for(int i=0;i<row;i++) {
@@ -67,7 +71,7 @@ public class Board {
 		board.get(x).get(y).setType(CaseType.PLAYERPOSITION);
 	}
 	
-	public void addHorizontalWall(int x, int y, int walllength) {
+	public void addVerticalWall(int x, int y, int walllength) {
 		if(x+walllength < row) {
 			for(int i = x;i<x+walllength;i++) {
 				board.get(i).get(y).setType(CaseType.WALL);
@@ -79,7 +83,7 @@ public class Board {
 			}
 		}
 	}
-	public void addVerticalWall(int x, int y, int walllength) {
+	public void addHorizontalWall(int x, int y, int walllength) {
 		if(y+walllength < col) {
 			for(int i = y;i<y+walllength;i++) {
 				board.get(x).get(i).setType(CaseType.WALL);
@@ -88,6 +92,38 @@ public class Board {
 		else {
 			for(int i = x;i<col;i++) {
 				board.get(x).get(i).setType(CaseType.WALL);
+			}
+		}
+	}
+	
+	public void printBoard() {
+		String charToPrint = ".";
+		for(int i=0;i<row;i++) {
+			for(int j=0;j<col;j++) {
+				switch(getCaseAt(i,j).getType()) {
+				case WALL :
+					charToPrint = "#";
+					break;
+				case TARGET : 
+					charToPrint = "x";
+					break;
+				case BOX : 
+					charToPrint = "C";
+					break;
+				case PLAYERPOSITION : 
+					charToPrint = "P";
+					break;
+				default:
+					charToPrint = ".";
+					break;
+				
+				}
+				if(j==col-1) {
+					System.out.println(charToPrint);
+				}
+				else {
+					System.out.print(charToPrint);
+				}
 			}
 		}
 	}
