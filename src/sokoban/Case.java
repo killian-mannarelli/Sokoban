@@ -3,12 +3,14 @@ package sokoban;
 public class Case {
 	private int row;
 	private int col;
-	private CaseType type;
+	private CaseType firsttype;
+	private CaseType secondoptionaltype;
 	
 	Case(int row, int col, CaseType type){
 		this.row = row;
 		this.col = col;
-		this.type = type;
+		this.firsttype = type;
+		this.secondoptionaltype = CaseType.EMPTY;
 	}
 
 	public int getRow() {
@@ -28,10 +30,18 @@ public class Case {
 	}
 
 	public CaseType getType() {
-		return type;
+		return firsttype;
 	}
 
 	public void setType(CaseType type) {
-		this.type = type;
+		this.firsttype = type;
+	}
+
+	public CaseType getSecondoptionaltype() {
+		return secondoptionaltype;
+	}
+
+	public void setSecondoptionaltype(CaseType secondoptionaltype) {
+		this.secondoptionaltype = secondoptionaltype;
 	}
 }

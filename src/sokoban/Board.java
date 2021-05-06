@@ -54,5 +54,13 @@ public class Board {
 		return boardtocreate;
 		
 	}
+	
+	public void addBox(int x, int y) {
+		board.get(x).get(y).setType(CaseType.BOX);
+	}
+	
+	public void addTarget(int x, int y) {
+		board.get(x).get(y).setType(CaseType.TARGET);
+	}
 
 }
