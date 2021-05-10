@@ -89,6 +89,10 @@ public class Board {
 			}
 		}
 	}
+	
+	public void addWall(int x, int y) {
+		board.get(x).get(y).setType(CaseType.WALL);
+	}
 	public void addHorizontalWall(int x, int y, int walllength) {
 		if(y+walllength < col) {
 			for(int i = y;i<y+walllength;i++) {

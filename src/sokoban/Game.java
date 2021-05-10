@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-	public static Board gameBoard=buildBoard();
+	public static Board gameBoard=buildBoardText();
 	private static final Scanner in = new Scanner(System.in);
 	public static boolean playStatus;
 
@@ -185,6 +185,19 @@ public class Game {
 		b.setPosition(3,4);
 		return b;
 	}
+	
+	private static Board buildBoardText() {
+		var builder = new TextBoardBuilder();
+		builder.addRow("##########");
+		builder.addRow("#x.x#....#");
+		builder.addRow("#...CC.P.#");
+		builder.addRow("#........#");
+		builder.addRow("##########");
+
+		var board = builder.build();
+		return board;
+	}
+	
 	
 	public static boolean winCondition() {
 		boolean condition=false;
