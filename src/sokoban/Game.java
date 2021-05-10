@@ -22,7 +22,8 @@ public class Game {
 	public static void Play()  {
 		//Game g = new Game(b);
 		try {
-		gameBoard=buildBoardText();
+		FileBoardBuilder b = new FileBoardBuilder();
+		gameBoard=b.build();
 		playStatus=true;
 		char input = '0';
 		gameBoard.printBoard();
@@ -157,7 +158,7 @@ public class Game {
 			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL) {
 				allowedmove = false;
 			}
-			else if(crateInThatDirection(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol())) {
+			else if(crateInThatDirection(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol())) {
 				if(gameBoard.getPlayercase().getRow()+2>gameBoard.getRow()-1) {
 					allowedmove = false;
 				}
