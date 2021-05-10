@@ -96,14 +96,14 @@ public class Game {
 			if(gameBoard.getPlayercase().getCol()-1<0) {
 				allowedmove = false;
 			}
-			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1).getType()==CaseType.WALL) {
+			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1).getType()==CaseType.WALL ) {
 				allowedmove = false;
 			}
 			else if(crateInThatDirection(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1)) {
 				if(gameBoard.getPlayercase().getCol()-2<0) {
 					allowedmove = false;
 				}
-				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-2).getType()==CaseType.WALL) {
+				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-2).getType()==CaseType.WALL || gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-2).getType()==CaseType.BOX) {
 					allowedmove = false;
 				}
 			}
@@ -113,7 +113,7 @@ public class Game {
 			if(gameBoard.getPlayercase().getCol()+1>gameBoard.getCol()-1) {
 				allowedmove = false;
 			}
-			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1).getType()==CaseType.WALL) {
+			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1).getType()==CaseType.WALL ) {
 				allowedmove = false;
 			}
 			
@@ -121,7 +121,7 @@ public class Game {
 				if(gameBoard.getPlayercase().getCol()+2>gameBoard.getCol()-1) {
 					allowedmove = false;
 				}
-				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+2).getType()==CaseType.WALL) {
+				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+2).getType()==CaseType.WALL || gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+2).getType()==CaseType.BOX) {
 					allowedmove = false;
 				}
 			}
@@ -138,7 +138,7 @@ public class Game {
 				if(gameBoard.getPlayercase().getRow()-2<0) {
 					allowedmove = false;
 				}
-				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()-2, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL) {
+				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()-2, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL || gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()-2, gameBoard.getPlayercase().getCol()).getType()==CaseType.BOX) {
 					allowedmove = false;
 				}
 			}
@@ -154,7 +154,7 @@ public class Game {
 				if(gameBoard.getPlayercase().getRow()+2>gameBoard.getRow()-1) {
 					allowedmove = false;
 				}
-				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()+2, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL) {
+				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()+2, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL || gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()-2, gameBoard.getPlayercase().getCol()).getType()==CaseType.BOX) {
 					allowedmove = false;
 				}
 			}
