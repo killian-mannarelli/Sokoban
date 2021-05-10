@@ -9,11 +9,13 @@ public class Board {
 	private int col;
 	private ArrayList<ArrayList<Case>> board;
 	private Case playercase;
+	private ArrayList<Case> targetList; 
 	
 	public Board(int row, int col){
 		this.setRow(row);
 		this.setCol(col);
 		this.board = createBoard();
+		this.targetList = new ArrayList<Case>();
 	}
 
 	public int getRow() {
@@ -67,6 +69,7 @@ public class Board {
 	public void addTarget(int x, int y) {
 		board.get(x).get(y).setType(CaseType.TARGET);
 		board.get(x).get(y).setSecondoptionaltype(CaseType.TARGET);
+		targetList.add(board.get(x).get(y));
 	}
 	
 	public void setPosition(int x, int y) {
@@ -143,6 +146,15 @@ public class Board {
 		getCaseAt(x,y).setType(CaseType.PLAYERPOSITION);
 		playercase.setType(playercase.getSecondoptionaltype());
 		setPlayercase(getCaseAt(x,y));
+	}
+	
+	public void moveBox(int oldx, int oldy, int x, int y) {
+		getCaseAt(oldx,oldy).setType(getCaseAt(oldx,oldy).getSecondoptionaltype());
+		getCaseAt(x,y).setType(CaseType.BOX);
+	}
+	
+	public ArrayList<Case> getTargetList(){
+		return this.targetList;
 	}
 	
 

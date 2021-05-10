@@ -11,16 +11,18 @@ public class Game {
 
 
 	
-	
+	/**
 	public Game(Board b) {
 		this.gameBoard = b;
 	}
+	*/
 	
 	
 	public static void Play(Board b) {
-		Game g = new Game(b);
+		//Game g = new Game(b);
 		playStatus=true;
 		char input = '0';
+		gameBoard.printBoard();
 		while(playStatus) {
 			//g.gameBoard.printBoard();
 			while(input == '0') {
@@ -29,14 +31,17 @@ public class Game {
 			if(possibleMovePlayer(input)) {
 				playerMove(input);
 				input='0';
-				g.gameBoard.printBoard();
+				gameBoard.printBoard();
 			}
 			else {
 				System.out.println("Invalid move, try again:");
 				input='0';
-				g.gameBoard.printBoard();
+				gameBoard.printBoard();
 			}
-			
+			if(winCondition()) {
+				playStatus =false;
+				System.out.println("You win congrats !");
+			}
 		}
 	}
 	
@@ -57,16 +62,28 @@ public class Game {
 		
 		switch(input) {
 			case 'L':
+				if(crateInThatDirection(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1)) {
+					gameBoard.moveBox(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1,gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-2);
+				}
 				gameBoard.movePlayer(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1);
 				break;
 				
 			case 'R':
+				if(crateInThatDirection(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1)) {
+					gameBoard.moveBox(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1,gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+2);
+				}
 				gameBoard.movePlayer(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1);
 				break;
 			case 'U':
+				if(crateInThatDirection(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol())) {
+					gameBoard.moveBox(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol(),gameBoard.getPlayercase().getRow()-2, gameBoard.getPlayercase().getCol());
+				}
 				gameBoard.movePlayer(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol());
 				break;
 			default:
+				if(crateInThatDirection(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol())) {
+					gameBoard.moveBox(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol(),gameBoard.getPlayercase().getRow()+2, gameBoard.getPlayercase().getCol());
+				}
 				gameBoard.movePlayer(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol());
 				break;
 		}
@@ -82,14 +99,31 @@ public class Game {
 			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1).getType()==CaseType.WALL) {
 				allowedmove = false;
 			}
+			else if(crateInThatDirection(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1)) {
+				if(gameBoard.getPlayercase().getCol()-2<0) {
+					allowedmove = false;
+				}
+				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-2).getType()==CaseType.WALL) {
+					allowedmove = false;
+				}
+			}
 			break;
 			
 		case 'R':
-			if(gameBoard.getPlayercase().getCol()+1<0) {
+			if(gameBoard.getPlayercase().getCol()+1>gameBoard.getCol()-1) {
 				allowedmove = false;
 			}
 			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1).getType()==CaseType.WALL) {
 				allowedmove = false;
+			}
+			
+			else if(crateInThatDirection(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1)) {
+				if(gameBoard.getPlayercase().getCol()+2>gameBoard.getCol()-1) {
+					allowedmove = false;
+				}
+				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+2).getType()==CaseType.WALL) {
+					allowedmove = false;
+				}
 			}
 			
 			break;
@@ -100,17 +134,42 @@ public class Game {
 			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL) {
 				allowedmove = false;
 			}
+			else if(crateInThatDirection(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol())) {
+				if(gameBoard.getPlayercase().getRow()-2<0) {
+					allowedmove = false;
+				}
+				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()-2, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL) {
+					allowedmove = false;
+				}
+			}
 			break;
 		default:
-			if(gameBoard.getPlayercase().getRow()+1<0) {
+			if(gameBoard.getPlayercase().getRow()+1>gameBoard.getRow()-1) {
 				allowedmove = false;
 			}
 			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL) {
 				allowedmove = false;
 			}
+			else if(crateInThatDirection(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol())) {
+				if(gameBoard.getPlayercase().getRow()+2>gameBoard.getRow()-1) {
+					allowedmove = false;
+				}
+				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()+2, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL) {
+					allowedmove = false;
+				}
+			}
 			break;
 	}
 		return allowedmove;
+	}
+	
+	private static boolean crateInThatDirection(int x, int y) {
+		if(gameBoard.getCaseAt(x, y).getType()==CaseType.BOX) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	private static Board buildBoard() {
@@ -127,6 +186,18 @@ public class Game {
 		return b;
 	}
 	
-	
+	public static boolean winCondition() {
+		boolean condition=false;
+		int sumCase=0;
+		for(Case c : gameBoard.getTargetList()) {
+			if(c.getType()==CaseType.BOX) {
+				sumCase++;
+			}
+		}
+		if(sumCase == gameBoard.getTargetList().size()) {
+			condition = true;
+		}
+		return condition;
+	}
 	
 }
