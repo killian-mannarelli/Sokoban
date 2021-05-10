@@ -8,6 +8,7 @@ public class Board {
 	private int row;
 	private int col;
 	private ArrayList<ArrayList<Case>> board;
+	private Case playercase;
 	
 	public Board(int row, int col){
 		this.setRow(row);
@@ -65,10 +66,12 @@ public class Board {
 	
 	public void addTarget(int x, int y) {
 		board.get(x).get(y).setType(CaseType.TARGET);
+		board.get(x).get(y).setSecondoptionaltype(CaseType.TARGET);
 	}
 	
 	public void setPosition(int x, int y) {
 		board.get(x).get(y).setType(CaseType.PLAYERPOSITION);
+		setPlayercase(board.get(x).get(y));
 	}
 	
 	public void addVerticalWall(int x, int y, int walllength) {
@@ -126,6 +129,14 @@ public class Board {
 				}
 			}
 		}
+	}
+
+	public Case getPlayercase() {
+		return playercase;
+	}
+
+	public void setPlayercase(Case playercase) {
+		this.playercase = playercase;
 	}
 	
 
