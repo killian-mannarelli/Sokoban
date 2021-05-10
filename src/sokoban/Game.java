@@ -22,11 +22,21 @@ public class Game {
 		playStatus=true;
 		char input = '0';
 		while(playStatus) {
-			g.gameBoard.printBoard();
+			//g.gameBoard.printBoard();
 			while(input == '0') {
 				input=commandInput();
 			}
-			input='0';
+			if(possibleMovePlayer(input)) {
+				playerMove(input);
+				input='0';
+				g.gameBoard.printBoard();
+			}
+			else {
+				System.out.println("Invalid move, try again:");
+				input='0';
+				g.gameBoard.printBoard();
+			}
+			
 		}
 	}
 	
@@ -41,6 +51,66 @@ public class Game {
 			return input.charAt(0);
 			
 		}
+	}
+	
+	public static void playerMove(char input) {
+		
+		switch(input) {
+			case 'L':
+				gameBoard.movePlayer(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1);
+				break;
+				
+			case 'R':
+				gameBoard.movePlayer(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1);
+				break;
+			case 'U':
+				gameBoard.movePlayer(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol());
+				break;
+			default:
+				gameBoard.movePlayer(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol());
+				break;
+		}
+	}
+	
+	private static boolean possibleMovePlayer(char input) {
+		boolean allowedmove = true;
+		switch(input) {
+		case 'L':
+			if(gameBoard.getPlayercase().getCol()-1<0) {
+				allowedmove = false;
+			}
+			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1).getType()==CaseType.WALL) {
+				allowedmove = false;
+			}
+			break;
+			
+		case 'R':
+			if(gameBoard.getPlayercase().getCol()+1<0) {
+				allowedmove = false;
+			}
+			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1).getType()==CaseType.WALL) {
+				allowedmove = false;
+			}
+			
+			break;
+		case 'U':
+			if(gameBoard.getPlayercase().getRow()-1<0) {
+				allowedmove = false;
+			}
+			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL) {
+				allowedmove = false;
+			}
+			break;
+		default:
+			if(gameBoard.getPlayercase().getRow()+1<0) {
+				allowedmove = false;
+			}
+			else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL) {
+				allowedmove = false;
+			}
+			break;
+	}
+		return allowedmove;
 	}
 	
 	private static Board buildBoard() {

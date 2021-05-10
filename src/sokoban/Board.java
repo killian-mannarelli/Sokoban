@@ -139,5 +139,11 @@ public class Board {
 		this.playercase = playercase;
 	}
 	
+	public void movePlayer(int x, int y) {
+		getCaseAt(x,y).setType(CaseType.PLAYERPOSITION);
+		playercase.setType(playercase.getSecondoptionaltype());
+		setPlayercase(getCaseAt(x,y));
+	}
+	
 
 }
