@@ -1,5 +1,5 @@
 package sokoban;
 
 public interface BoardBuilder {
-	Board build();
+	Board build() throws BuilderException;
 }

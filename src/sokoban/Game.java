@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-	public static Board gameBoard=buildBoardText();
+	public static Board gameBoard;
 	private static final Scanner in = new Scanner(System.in);
 	public static boolean playStatus;
 
@@ -15,11 +15,14 @@ public class Game {
 	public Game(Board b) {
 		this.gameBoard = b;
 	}
+	 * @throws BuilderException 
 	*/
 	
 	
-	public static void Play(Board b) {
+	public static void Play()  {
 		//Game g = new Game(b);
+		try {
+		gameBoard=buildBoardText();
 		playStatus=true;
 		char input = '0';
 		gameBoard.printBoard();
@@ -42,6 +45,10 @@ public class Game {
 				playStatus =false;
 				System.out.println("You win congrats !");
 			}
+		}
+	}
+		catch(BuilderException e) {
+			System.out.println("Error with the Board building");
 		}
 	}
 	
@@ -186,16 +193,22 @@ public class Game {
 		return b;
 	}
 	
-	private static Board buildBoardText() {
+	private static Board buildBoardText() throws BuilderException  {
 		var builder = new TextBoardBuilder();
 		builder.addRow("##########");
 		builder.addRow("#x.x#....#");
-		builder.addRow("#...CC.P.#");
+		builder.addRow("#..C.C.P.#");
 		builder.addRow("#........#");
 		builder.addRow("##########");
-
-		var board = builder.build();
-		return board;
+		
+			var board = builder.build();
+			return board;
+		
+		
+			
+		
+		
+		
 	}
 	
 	

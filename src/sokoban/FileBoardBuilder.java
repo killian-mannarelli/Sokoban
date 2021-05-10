@@ -9,7 +9,7 @@ public class FileBoardBuilder implements BoardBuilder{
 	
 	
 	@Override
-	public Board build() {
+	public Board build() throws BuilderException{
 		return null;
 	}
 }

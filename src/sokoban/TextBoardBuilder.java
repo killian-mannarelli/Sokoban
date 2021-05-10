@@ -14,8 +14,18 @@ public class TextBoardBuilder implements BoardBuilder{
 		rowString.add(row);
 	}
 	
+	public void checkStringSize() throws BuilderException{
+		int referencesize = rowString.get(0).length();
+		for(String c : rowString) {
+			if(c.length()!=referencesize) {
+				throw new BuilderException("The strings are not of the same size !");
+		}
+	}
+	}
+	
 	@Override
-	public Board build() {
+	public Board build() throws BuilderException{
+		checkStringSize();
 		Board b = new Board(rowString.size(),rowString.get(0).length());
 		for(int i=0;i<rowString.size();i++) {
 			for(int j=0;j<rowString.get(0).length();j++) {
