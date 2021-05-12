@@ -6,6 +6,7 @@ public class Administrator {
 
 	public static void main(String[] args) {
 		createDatabase();
+		listBoards();
 
 	}
 	
@@ -41,7 +42,30 @@ public class Administrator {
 				
 				//s.executeUpdate("insert into board " + "values ('Board1', 6, 6)");	
 			}
+			else {
+				System.out.println("DB already exist");
+			}
 			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void listBoards() {
+		String sqlite_driver = "org.sqlite.JDBC";
+		String path= "jdbc:sqlite:database.db";
+		try(Connection c
+				= DriverManager.getConnection(path)) {
+			
+			
+			Statement s = c.createStatement();
+			ResultSet r = s.executeQuery("select * from board");
+			while(r.next()) {
+				
+				System.out.println("name :" +" " +r.getString("name") + " "+ r.getInt("row") +" " +r.getInt("col"));
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
