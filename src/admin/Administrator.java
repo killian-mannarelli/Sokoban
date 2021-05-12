@@ -72,5 +72,9 @@ public class Administrator {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void addBoardFromFile(String id, Board b) {
+		
+	}
 
 }
