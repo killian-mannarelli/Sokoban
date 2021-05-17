@@ -161,5 +161,41 @@ public class Board {
 		return this.targetList;
 	}
 	
+	public ArrayList<String> rowsToString() {
+		String charToAdd = ". ";
+		ArrayList<String> rowList = new ArrayList<String>();
+		for(int i=0;i<row;i++) {
+			String rowString = "";
+			for(int j=0;j<col;j++) {
+				switch(getCaseAt(i,j).getType()) {
+				case WALL :
+					charToAdd = "# ";
+					break;
+				case TARGET : 
+					charToAdd = "x ";
+					break;
+				case BOX : 
+					charToAdd = "C ";
+					break;
+				case PLAYERPOSITION : 
+					charToAdd = "P ";
+					break;
+				default:
+					charToAdd = ". ";
+					break;
+				
+				}
+				if(j==col-1) {
+					rowString= rowString + charToAdd;	
+				}
+				else {
+					rowString= rowString + charToAdd;
+				}
+			}
+			rowList.add(rowString);
+		}
+		return rowList;
+	}
+	
 
 }
