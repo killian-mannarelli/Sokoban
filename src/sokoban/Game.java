@@ -2,6 +2,7 @@ package sokoban;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import admin.Administrator;
 
 public class Game {
 	public static Board gameBoard;
@@ -21,9 +22,10 @@ public class Game {
 	
 	public static void Play()  {
 		//Game g = new Game(b);
-		try {
-		FileBoardBuilder b = new FileBoardBuilder("board.txt");
-		gameBoard=b.build();
+		
+		//FileBoardBuilder b = new FileBoardBuilder("board.txt");
+		//gameBoard=b.build();
+		gameBoard = chooseBoard();
 		playStatus=true;
 		char input = '0';
 		gameBoard.printBoard();
@@ -47,10 +49,8 @@ public class Game {
 				System.out.println("You win congrats !");
 			}
 		}
-	}
-		catch(BuilderException e) {
-			System.out.println("Error with the Board building");
-		}
+	
+		
 	}
 	
 	public static char commandInput() {
@@ -65,7 +65,13 @@ public class Game {
 			
 		}
 	}
-	
+	public static Board chooseBoard() {
+		Administrator.listBoards();
+		System.out.println("Choose your board by typing the id:");
+		String input = in.nextLine().trim();
+		return Administrator.getBoardWithId(input);
+		
+	}
 	public static void playerMove(char input) {
 		
 		switch(input) {

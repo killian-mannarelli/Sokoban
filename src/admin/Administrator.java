@@ -118,8 +118,6 @@ public class Administrator {
 			
 			for(String str :b.rowsToString()) {
 				PreparedStatement ps = c.prepareStatement("insert into row values (? , "+num+" , ?)");
-				//ps.setString(0, String.valueOf(num));
-				//ps.setString(0, id);
 				ps.setString(2, str);
 				ps.setString(1, id);
 				ps.executeUpdate();
@@ -176,6 +174,28 @@ public class Administrator {
 		}
 	}
 	
+	public static Board getBoardWithId(String id) {
+		try(Connection c
+				= DriverManager.getConnection(path)){
+			
+			
+			TextBoardBuilder t = new TextBoardBuilder();
+			PreparedStatement ps = c.prepareStatement("select description from row where name = ?");
+			ps.setString(1, id);
+			ResultSet r = ps.executeQuery();
+			while(r.next()) {
+				t.addRow(r.getString(1));
+				//System.out.println(r.getString(1));
+			}
+			Board b = t.build();
+			return b;
+			
+		} catch (SQLException | BuilderException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	private static String removeSpaces(String string) {
         return string.replaceAll("\\s+", "").toLowerCase();
