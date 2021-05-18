@@ -7,14 +7,16 @@ import java.util.Scanner;
 
 public class FileBoardBuilder implements BoardBuilder{
 	
-	
-	
+	String filepath;
+	public FileBoardBuilder(String filepath) {
+		this.filepath = filepath;
+	}
 	
 	
 	@Override
 	public Board build() throws BuilderException{
 		try  {
-			File myObj = new File("board.txt");
+			File myObj = new File(filepath);
 		    Scanner myReader = new Scanner(myObj);
 		    TextBoardBuilder TextBuilder = new TextBoardBuilder();
 		    while (myReader.hasNextLine()) {

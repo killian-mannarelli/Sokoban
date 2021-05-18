@@ -22,7 +22,7 @@ public class Game {
 	public static void Play()  {
 		//Game g = new Game(b);
 		try {
-		FileBoardBuilder b = new FileBoardBuilder();
+		FileBoardBuilder b = new FileBoardBuilder("board.txt");
 		gameBoard=b.build();
 		playStatus=true;
 		char input = '0';

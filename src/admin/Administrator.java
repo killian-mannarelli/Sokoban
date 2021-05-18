@@ -14,6 +14,7 @@ public class Administrator {
 			System.out.println(" - Create Database");
 			System.out.println(" - Show Boardlist");
 			System.out.println(" - Add Board");
+			System.out.println(" - Show Board");
 			System.out.println(" - Quit");
 			
 			String command = removeSpaces(textEntry.nextLine());
@@ -29,18 +30,13 @@ public class Administrator {
 				listBoards();
 				break;
 			case "addboard":
-				FileBoardBuilder build = new FileBoardBuilder();
-				try {
-					Board b = build.build();
-					addBoard("test2",b);
-					/**
-					for(String str : b.rowsToString()) {
-						System.out.println(str);
-					*/
-				}
-				catch(BuilderException e) {
-					System.out.println("Error with the Board building");
-				}
+				addBoard(fileToBoard());
+				break;
+			case "showboard":
+				showBoard();
+				break;		
+				
+				
 				
 			}
 		}
@@ -110,8 +106,10 @@ public class Administrator {
 		}
 	}
 	
-	public static void addBoard(String id, Board b) {
+	public static void addBoard(Board b) {
 		int num = 0;
+		System.out.println("Give Board id for the database");
+		String id = textEntry.nextLine();
 		try(Connection c
 				= DriverManager.getConnection(path)) {
 			
@@ -119,19 +117,65 @@ public class Administrator {
 			Statement s = c.createStatement();
 			
 			for(String str :b.rowsToString()) {
-				PreparedStatement ps = c.prepareStatement("insert into row values ('"+id+"' , "+num+" , ?)");
+				PreparedStatement ps = c.prepareStatement("insert into row values (? , "+num+" , ?)");
 				//ps.setString(0, String.valueOf(num));
-				ps.setString(1, str);
+				//ps.setString(0, id);
+				ps.setString(2, str);
+				ps.setString(1, id);
 				ps.executeUpdate();
 				num++;
 			}
-			
+			PreparedStatement ps = c.prepareStatement("insert into board values  (?,"+b.getRow()+","+b.getCol()+")");
+			ps.setString(1, id);
+			ps.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	public static Board fileToBoard() {
+		String fileName = "";
+		System.out.println("Give Boardfile name without .txt");
+		fileName = textEntry.nextLine();
+		fileName = fileName + ".txt";
+		FileBoardBuilder builder = new FileBoardBuilder(fileName);
+		Board b;
+		try {
+			b= builder.build();
+			return b;
+		}
+		catch(BuilderException e) {
+			System.out.println("Error with the Board building");
+			return null;
+		}
+		
+	}
+	public static void showBoard() {
+		listBoards();
+		System.out.println("Give Board id for the database");
+		String id = textEntry.nextLine();
+		try(Connection c
+				= DriverManager.getConnection(path)){
+			
+			TextBoardBuilder t= new TextBoardBuilder();
+			PreparedStatement ps = c.prepareStatement("select description from row where name = ?");
+			ps.setString(1, id);
+			ResultSet r = ps.executeQuery();
+			while(r.next()) {
+				t.addRow(r.getString(1));
+				//System.out.println(r.getString(1));
+			}
+			Board b = t.build();
+			b.printBoard();
+		}
+		catch (SQLException | BuilderException  e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	private static String removeSpaces(String string) {
         return string.replaceAll("\\s+", "").toLowerCase();

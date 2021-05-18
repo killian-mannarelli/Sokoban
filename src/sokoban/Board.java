@@ -162,26 +162,26 @@ public class Board {
 	}
 	
 	public ArrayList<String> rowsToString() {
-		String charToAdd = ". ";
+		String charToAdd = ".";
 		ArrayList<String> rowList = new ArrayList<String>();
 		for(int i=0;i<row;i++) {
 			String rowString = "";
 			for(int j=0;j<col;j++) {
 				switch(getCaseAt(i,j).getType()) {
 				case WALL :
-					charToAdd = "# ";
+					charToAdd = "#";
 					break;
 				case TARGET : 
-					charToAdd = "x ";
+					charToAdd = "x";
 					break;
 				case BOX : 
-					charToAdd = "C ";
+					charToAdd = "C";
 					break;
 				case PLAYERPOSITION : 
-					charToAdd = "P ";
+					charToAdd = "P";
 					break;
 				default:
-					charToAdd = ". ";
+					charToAdd = ".";
 					break;
 				
 				}
