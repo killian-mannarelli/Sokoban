@@ -110,6 +110,7 @@ public class Board {
 		String charToPrint = ". ";
 		for(int i=0;i<row;i++) {
 			for(int j=0;j<col;j++) {
+				
 				switch(getCaseAt(i,j).getType()) {
 				case WALL :
 					charToPrint = "# ";
@@ -134,6 +135,8 @@ public class Board {
 				else {
 					System.out.print(charToPrint);
 				}
+				
+				
 			}
 		}
 	}
