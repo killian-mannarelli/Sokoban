@@ -134,12 +134,7 @@ public class Game {
 				allowedmove = false;
 			}
 			else if(crateInThatDirection(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1)) {
-				if(gameBoard.getPlayercase().getCol()-2<0) {
-					allowedmove = false;
-				}
-				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-2).getType()==CaseType.WALL || gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-2).getType()==CaseType.BOX) {
-					allowedmove = false;
-				}
+				allowedmove=possibleCrateMove(gameBoard.getPlayercase().getCol()-1, gameBoard.getPlayercase().getRow(),'L');
 			}
 			break;
 			
@@ -152,12 +147,7 @@ public class Game {
 			}
 			
 			else if(crateInThatDirection(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1)) {
-				if(gameBoard.getPlayercase().getCol()+2>gameBoard.getCol()-1) {
-					allowedmove = false;
-				}
-				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+2).getType()==CaseType.WALL || gameBoard.getCaseAt(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+2).getType()==CaseType.BOX) {
-					allowedmove = false;
-				}
+				allowedmove=possibleCrateMove(gameBoard.getPlayercase().getCol()+1, gameBoard.getPlayercase().getRow(),'R');
 			}
 			
 			break;
@@ -169,12 +159,7 @@ public class Game {
 				allowedmove = false;
 			}
 			else if(crateInThatDirection(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol())) {
-				if(gameBoard.getPlayercase().getRow()-2<0) {
-					allowedmove = false;
-				}
-				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()-2, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL || gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()-2, gameBoard.getPlayercase().getCol()).getType()==CaseType.BOX) {
-					allowedmove = false;
-				}
+				allowedmove=possibleCrateMove(gameBoard.getPlayercase().getCol(), gameBoard.getPlayercase().getRow()-1,'U');
 			}
 			break;
 		default:
@@ -185,12 +170,7 @@ public class Game {
 				allowedmove = false;
 			}
 			else if(crateInThatDirection(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol())) {
-				if(gameBoard.getPlayercase().getRow()+2>gameBoard.getRow()-1) {
-					allowedmove = false;
-				}
-				else if(gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()+2, gameBoard.getPlayercase().getCol()).getType()==CaseType.WALL || gameBoard.getCaseAt(gameBoard.getPlayercase().getRow()-2, gameBoard.getPlayercase().getCol()).getType()==CaseType.BOX) {
-					allowedmove = false;
-				}
+				allowedmove=possibleCrateMove(gameBoard.getPlayercase().getCol(), gameBoard.getPlayercase().getRow()+1,'D');
 			}
 			break;
 	}
