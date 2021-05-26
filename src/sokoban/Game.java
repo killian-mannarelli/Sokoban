@@ -22,6 +22,11 @@ public class Game {
 	
 	public static void Play()  {
 		try {
+			System.out.println("Welcome to Sokoban");
+			System.out.println("you can quit at any time by writing quit");
+			System.out.println("First choose you board by typing the EXACT id as written on this terminal.");
+			System.out.println("Then press U to go Up, L to go Left, R to go Right, and D to go Down.");
+			System.out.println("Good luck !");
 			gameBoard = chooseBoard();
 			playStatus=true;
 			char input = '0';
@@ -46,10 +51,17 @@ public class Game {
 				}
 			}	
 		}
-		catch(PlayerLeaveException ex) {
-			System.out.println(ex.getMessage());
+		catch(PlayerLeaveException  ex) {
+			
+			
+				System.out.println(ex.getMessage());
+			
+			
 		}
-	
+		catch(IndexOutOfBoundsException ex){
+			System.out.println("Incorrect id please try again !");
+			Play();
+		}
 		
 	}
 	
@@ -192,6 +204,10 @@ public class Game {
 		else {
 			return false;
 		}
+	}
+	
+	private static boolean possibleCrateMove(int x, int y, char direction) {
+		return false;
 	}
 	
 	private static Board buildBoard() {
