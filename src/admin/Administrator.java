@@ -67,22 +67,43 @@ public class Administrator {
 			}
 			
 			
-			if(!alreadycreated) {
-				System.out.println("DB Created");
-				s.execute("create table board" + "(name text, row integer , col integer)");
-				s.execute("create table row" + "(name text, row_num integer , description text)");
-				s.execute("create table existboolean" + "(exist integer)");
-				s.executeUpdate("insert into existboolean " + "values(1)" );
+			if(alreadycreated) {
 				
-				//s.executeUpdate("insert into board " + "values ('Board1', 6, 6)");	
-			}
-			else {
 				System.out.println("DB already exist");
+				
 			}
+			
 			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			System.out.println("DB not existing, creating. . .");
+			createTables();
+			
+			
+		}
+	}
+	
+	public static void createTables() {
+		String sqlite_driver = "org.sqlite.JDBC";
+		String path= "jdbc:sqlite:database.db";
+		try {
+			Class.forName(sqlite_driver);
+			
+		}catch(ClassNotFoundException ex) {
+			System.out.println("* Driver manquant");
+		}
+		try(Connection c
+				= DriverManager.getConnection(path)) {
+			Statement s = c.createStatement();
+			s.execute("create table board" + "(name text, row integer , col integer)");
+			s.execute("create table row" + "(name text, row_num integer , description text)");
+			s.execute("create table existboolean" + "(exist integer)");
+			s.executeUpdate("insert into existboolean " + "values(1)" );
+			
+			
+		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		}
 	}

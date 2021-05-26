@@ -21,54 +21,62 @@ public class Game {
 	
 	
 	public static void Play()  {
-		//Game g = new Game(b);
-		
-		//FileBoardBuilder b = new FileBoardBuilder("board.txt");
-		//gameBoard=b.build();
-		gameBoard = chooseBoard();
-		playStatus=true;
-		char input = '0';
-		gameBoard.printBoard();
-		while(playStatus) {
-			//g.gameBoard.printBoard();
-			while(input == '0') {
-				input=commandInput();
-			}
-			if(possibleMovePlayer(input)) {
-				playerMove(input);
-				input='0';
-				gameBoard.printBoard();
-			}
-			else {
-				System.out.println("Invalid move, try again:");
-				input='0';
-				gameBoard.printBoard();
-			}
-			if(winCondition()) {
-				playStatus =false;
-				System.out.println("You win congrats !");
-			}
+		try {
+			gameBoard = chooseBoard();
+			playStatus=true;
+			char input = '0';
+			gameBoard.printBoard();
+			while(playStatus) {
+				while(input == '0') {
+					input=commandInput();
+				}
+				if(possibleMovePlayer(input)) {
+					playerMove(input);
+					input='0';
+					gameBoard.printBoard();
+				}
+				else {
+					System.out.println("Invalid move, try again:");
+					input='0';
+					gameBoard.printBoard();
+				}
+				if(winCondition()) {
+					playStatus =false;
+					System.out.println("You win congrats !");
+				}
+			}	
+		}
+		catch(PlayerLeaveException ex) {
+			System.out.println(ex.getMessage());
 		}
 	
 		
 	}
 	
-	public static char commandInput() {
+	public static char commandInput() throws PlayerLeaveException {
 		System.out.println("Enter U or D or L or R :");
 		String input = in.nextLine().trim();
-		if(input.charAt(0)!='U' && input.charAt(0)!='L'&& input.charAt(0)!='R' && input.charAt(0)!='D' ) {
+		 if(input.equals("quit")) {
+			throw new PlayerLeaveException("Player left");
+		}
+		 else if(input.charAt(0)!='U' && input.charAt(0)!='L'&& input.charAt(0)!='R' && input.charAt(0)!='D' ) {
 			return '0';
 		}
+		
 		else {
 			System.out.println(input.charAt(0));
 			return input.charAt(0);
 			
 		}
+		
 	}
-	public static Board chooseBoard() {
+	public static Board chooseBoard() throws PlayerLeaveException {
 		Administrator.listBoards();
 		System.out.println("Choose your board by typing the id:");
 		String input = in.nextLine().trim();
+		if(input.equals("quit")) {
+			throw new PlayerLeaveException("Player left");
+		}
 		return Administrator.getBoardWithId(input);
 		
 	}
