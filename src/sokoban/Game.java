@@ -206,8 +206,59 @@ public class Game {
 		}
 	}
 	
-	private static boolean possibleCrateMove(int x, int y, char direction) {
-		return false;
+	private static boolean possibleCrateMove(int x, int y, char input) {
+		boolean allowedmove = true;
+		switch(input) {
+		case 'L':
+			if(x-1<0) {
+				allowedmove = false;
+			}
+			else if(gameBoard.getCaseAt(y, x-1).getType()==CaseType.WALL ) {
+				allowedmove = false;
+			}
+			else if(crateInThatDirection(y, x-1)) {
+				return possibleCrateMove(x-1,y,'L');
+				}
+			
+			break;
+			
+		case 'R':
+			if(x+1>gameBoard.getCol()-1) {
+				allowedmove = false;
+			}
+			else if(gameBoard.getCaseAt(y, x+1).getType()==CaseType.WALL ) {
+				allowedmove = false;
+			}
+			
+			else if(crateInThatDirection(y, x+1)) {
+				return possibleCrateMove(x+1,y,'R');
+			}
+			
+			break;
+		case 'U':
+			if(y-1<0) {
+				allowedmove = false;
+			}
+			else if(gameBoard.getCaseAt(y-1, x).getType()==CaseType.WALL) {
+				allowedmove = false;
+			}
+			else if(crateInThatDirection(y-1, x)) {
+				return possibleCrateMove(x,y-1,'U');
+			}
+			break;
+		default:
+			if(y+1>gameBoard.getRow()-1) {
+				allowedmove = false;
+			}
+			else if(gameBoard.getCaseAt(y+1, x).getType()==CaseType.WALL) {
+				allowedmove = false;
+			}
+			else if(crateInThatDirection(y+1, x)) {
+				return possibleCrateMove(x,y+1,'D');
+			}
+			break;
+	}
+		return allowedmove;
 	}
 	
 	private static Board buildBoard() {
