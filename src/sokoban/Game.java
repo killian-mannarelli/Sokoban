@@ -303,7 +303,7 @@ public class Game {
 		case 'L':
 			if(crateInThatDirection(y, x-1)) {
 				crateMove(x-1,y,'L');
-				System.out.println("Ca marche");
+				
 			}
 			gameBoard.moveBox(y, x,y,x-1);
 			break;
