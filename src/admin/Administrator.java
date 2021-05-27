@@ -68,7 +68,7 @@ public class Administrator {
 	}
 	
 	/**
-	 * Une méthode permettant de créer la base de donnée, sinon elle affiche que celle-ci existe déjà.
+	 * A method that create a database�.
 	 */
 	public static void createDatabase() {
 		String sqlite_driver = "org.sqlite.JDBC";
@@ -111,7 +111,7 @@ public class Administrator {
 	}
 	
 	/**
-	 * Une méthode qui créer les tables de la base de donnée.
+	 * A method that create the tables that are used in the DB.
 	 */
 	public static void createTables() {
 		String sqlite_driver = "org.sqlite.JDBC";
@@ -138,7 +138,7 @@ public class Administrator {
 	}
 	
 	/**
-	 * Une méthode qui liste les différents plateaux de la BD, en affichant leur id et leur taille.
+	 * A method that list all the boards that the DB contains. Showing for each, it id and size.
 	 */
 	public static void listBoards() {
 		
@@ -160,9 +160,9 @@ public class Administrator {
 	}
 	
 	/**
-	 * Ajoute un plateau à la BD.
+	 * Add a board to the DB.
 	 *
-	 * @param b Le plateau à ajouter
+	 * @param b The board to add
 	 */
 	public static void addBoard(Board b) {
 		int num = 0;
@@ -192,9 +192,9 @@ public class Administrator {
 	}
 	
 	/**
-	 * Transforme un fichier texte en un Board ajoutable à la BD.
+	 * Transform a textfile into a Board .
 	 *
-	 * @return Le plateau construit à partir du fichier texte.
+	 * @return The board build using the textfile.
 	 */
 	public static Board fileToBoard() {
 		String fileName = "";
@@ -214,7 +214,7 @@ public class Administrator {
 		
 	}
 	/**
-	 * Une méthode qui affiche un plateau dans le terminal en demandant au préalable son id.
+	 * A method that show a board in the terminal, it first ask for the board id to search in the DB.
 	 */
 	public static void showBoard() {
 		listBoards();
@@ -241,10 +241,10 @@ public class Administrator {
 	}
 	
 	/**
-	 * Méthode qui retourne un plateau contenu dans la BD à partir de son id.
+	 * A method that return a Board which is in the DB using it id.
 	 *
-	 * @param id L'id du plateau
-	 * @return Le plateau demandé
+	 * @param id The board id
+	 * @return The board asked+
 	 */
 	public static Board getBoardWithId(String id) {
 		try(Connection c
@@ -270,7 +270,7 @@ public class Administrator {
 	}
 	
 	/**
-	 * !A utiliser avec précautions! Méthode qui supprime un plateau de la BD en demandant au préalable son id.
+	 * !Danger! A method that delete a Board from the DB, it ask first for the Board.
 	 */
 	public static void deleteBoard() {
 		try(Connection c

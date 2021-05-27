@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import admin.Administrator;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Game.
+ * The Class Game containing all the methods that the game use to be playable.
  */
 public class Game {
 	
 	/** The game board. */
 	public static Board gameBoard;
 	
-	/** The Constant in. */
+	/** The scanner used for interaction with the player. */
 	private static final Scanner in = new Scanner(System.in);
 	
 	/** The play status. */
@@ -22,13 +22,11 @@ public class Game {
 
 
 	
+	
+	
 	/**
-	 * 	public Game(Board b) {
-	 * 		this.gameBoard = b;
-	 * 	}
+	 * A method that launch a new game.
 	 */
-	
-	
 	public static void Play()  {
 		try {
 			System.out.println("Welcome to Sokoban");
@@ -76,9 +74,9 @@ public class Game {
 	}
 	
 	/**
-	 * Command input.
+	 * A method that prompt the player for what he want to do.
 	 *
-	 * @return the char
+	 * @return The action 
 	 * @throws PlayerLeaveException the player leave exception
 	 */
 	public static char commandInput() throws PlayerLeaveException {
