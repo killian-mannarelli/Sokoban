@@ -48,6 +48,7 @@ public class Game {
 				if(winCondition()) {
 					playStatus =false;
 					System.out.println("You win congrats !");
+					Play();
 				}
 			}	
 		}
@@ -97,26 +98,26 @@ public class Game {
 		switch(input) {
 			case 'L':
 				if(crateInThatDirection(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1)) {
-					gameBoard.moveBox(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1,gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-2);
+					crateMove(gameBoard.getPlayercase().getCol()-1,gameBoard.getPlayercase().getRow(), 'L');
 				}
 				gameBoard.movePlayer(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()-1);
 				break;
 				
 			case 'R':
 				if(crateInThatDirection(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1)) {
-					gameBoard.moveBox(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1,gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+2);
+					crateMove(gameBoard.getPlayercase().getCol()+1,gameBoard.getPlayercase().getRow(), 'R');
 				}
 				gameBoard.movePlayer(gameBoard.getPlayercase().getRow(), gameBoard.getPlayercase().getCol()+1);
 				break;
 			case 'U':
 				if(crateInThatDirection(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol())) {
-					gameBoard.moveBox(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol(),gameBoard.getPlayercase().getRow()-2, gameBoard.getPlayercase().getCol());
+					crateMove(gameBoard.getPlayercase().getCol(),gameBoard.getPlayercase().getRow()-1, 'U');
 				}
 				gameBoard.movePlayer(gameBoard.getPlayercase().getRow()-1, gameBoard.getPlayercase().getCol());
 				break;
 			default:
 				if(crateInThatDirection(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol())) {
-					gameBoard.moveBox(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol(),gameBoard.getPlayercase().getRow()+2, gameBoard.getPlayercase().getCol());
+					crateMove(gameBoard.getPlayercase().getCol(),gameBoard.getPlayercase().getRow()+1, 'D');
 				}
 				gameBoard.movePlayer(gameBoard.getPlayercase().getRow()+1, gameBoard.getPlayercase().getCol());
 				break;
@@ -241,37 +242,38 @@ public class Game {
 		return allowedmove;
 	}
 	
-	private static Board buildBoard() {
-		Board b = new Board( 5, 6);
-		b.addHorizontalWall(0,5,6);
-		b.addHorizontalWall(4,5,6);
-		b.addVerticalWall(0,0,5);
-		b.addVerticalWall(0,5,5);
-		b.addBox(2,1);
-		b.addBox(2,3);
-		b.addTarget(3,1);
-		b.addTarget(3,2);
-		b.setPosition(3,4);
-		return b;
+	private static void crateMove(int x, int y , char input) {
+		switch(input) {
+		case 'L':
+			if(crateInThatDirection(y, x-1)) {
+				crateMove(x-1,y,'L');
+				System.out.println("Ca marche");
+			}
+			gameBoard.moveBox(y, x,y,x-1);
+			break;
+			
+		case 'R':
+			if(crateInThatDirection(y, x+1)) {
+				crateMove(x+1,y,'R');
+			}
+			gameBoard.moveBox(y, x,y,x+1);
+			break;
+		case 'U':
+			if(crateInThatDirection(y-1, x)) {
+				crateMove(x,y-1,'U');
+			}
+			gameBoard.moveBox(y, x,y-1,x);
+			break;
+		default:
+			if(crateInThatDirection(y+1, x)) {
+				crateMove(x,y+1,'D');
+			}
+			gameBoard.moveBox(y, x,y+1,x);
+			break;
+	}
 	}
 	
-	private static Board buildBoardText() throws BuilderException  {
-		var builder = new TextBoardBuilder();
-		builder.addRow("##########");
-		builder.addRow("#x.x#....#");
-		builder.addRow("#..C.C.P.#");
-		builder.addRow("#........#");
-		builder.addRow("##########");
-		
-			var board = builder.build();
-			return board;
-		
-		
-			
-		
-		
-		
-	}
+	
 	
 	
 	public static boolean winCondition() {

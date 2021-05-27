@@ -15,6 +15,7 @@ public class Administrator {
 			System.out.println(" - Show Boardlist");
 			System.out.println(" - Add Board");
 			System.out.println(" - Show Board");
+			System.out.println(" - Delete Board");
 			System.out.println(" - Quit");
 			
 			String command = removeSpaces(textEntry.nextLine());
@@ -35,7 +36,9 @@ public class Administrator {
 			case "showboard":
 				showBoard();
 				break;		
-				
+			case "deleteboard":
+				deleteBoard();
+				break;
 				
 				
 			}
@@ -217,6 +220,26 @@ public class Administrator {
 			return null;
 		}
 	}
+	
+	public static void deleteBoard() {
+		try(Connection c
+				= DriverManager.getConnection(path)){
+			listBoards();
+			System.out.println("Give the id that you want to delete from the DB : ");
+			String id = textEntry.nextLine();
+			PreparedStatement ps = c.prepareStatement("delete from row where name = ?");
+			ps.setString(1, id);
+			ps.execute();
+			 ps = c.prepareStatement("delete from board where name = ?");
+			 ps.setString(1, id);
+			 ps.execute();
+			 System.out.println("Table deleted : " + id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		
 	
 	private static String removeSpaces(String string) {
         return string.replaceAll("\\s+", "").toLowerCase();
