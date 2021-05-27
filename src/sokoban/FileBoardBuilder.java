@@ -5,14 +5,31 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FileBoardBuilder.
+ */
 public class FileBoardBuilder implements BoardBuilder{
 	
+	/** The filepath. */
 	String filepath;
+	
+	/**
+	 * Instantiates a new file board builder.
+	 *
+	 * @param filepath the filepath
+	 */
 	public FileBoardBuilder(String filepath) {
 		this.filepath = filepath;
 	}
 	
 	
+	/**
+	 * Builds the.
+	 *
+	 * @return the board
+	 * @throws BuilderException the builder exception
+	 */
 	@Override
 	public Board build() throws BuilderException{
 		try  {

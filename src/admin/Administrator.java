@@ -3,10 +3,30 @@ import java.sql.*;
 import sokoban.*;
 import java.util.*;
 
+
+/**
+ * The Class Administrator.
+ */
 public class Administrator {
+	
+	/** The text entry. */
 	static Scanner textEntry = new Scanner(System.in);
+	
+	/** The sqlite driver. */
 	static String sqlite_driver = "org.sqlite.JDBC";
+	
+	/** The path. */
 	static String path= "jdbc:sqlite:database.db";
+	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
+	/**
+	 * Le main administrateur permettant la gestion de la base de donnée contenant les plateaux
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		boolean ongoing=true;
 		while(ongoing){
@@ -47,6 +67,9 @@ public class Administrator {
 
 	}
 	
+	/**
+	 * Une méthode permettant de créer la base de donnée, sinon elle affiche que celle-ci existe déjà.
+	 */
 	public static void createDatabase() {
 		String sqlite_driver = "org.sqlite.JDBC";
 		String path= "jdbc:sqlite:database.db";
@@ -87,6 +110,9 @@ public class Administrator {
 		}
 	}
 	
+	/**
+	 * Une méthode qui créer les tables de la base de donnée.
+	 */
 	public static void createTables() {
 		String sqlite_driver = "org.sqlite.JDBC";
 		String path= "jdbc:sqlite:database.db";
@@ -111,6 +137,9 @@ public class Administrator {
 		}
 	}
 	
+	/**
+	 * Une méthode qui liste les différents plateaux de la BD, en affichant leur id et leur taille.
+	 */
 	public static void listBoards() {
 		
 		try(Connection c
@@ -130,6 +159,11 @@ public class Administrator {
 		}
 	}
 	
+	/**
+	 * Ajoute un plateau à la BD.
+	 *
+	 * @param b Le plateau à ajouter
+	 */
 	public static void addBoard(Board b) {
 		int num = 0;
 		System.out.println("Give Board id for the database");
@@ -157,6 +191,11 @@ public class Administrator {
 		}
 	}
 	
+	/**
+	 * Transforme un fichier texte en un Board ajoutable à la BD.
+	 *
+	 * @return Le plateau construit à partir du fichier texte.
+	 */
 	public static Board fileToBoard() {
 		String fileName = "";
 		System.out.println("Give Boardfile name without .txt");
@@ -174,6 +213,9 @@ public class Administrator {
 		}
 		
 	}
+	/**
+	 * Une méthode qui affiche un plateau dans le terminal en demandant au préalable son id.
+	 */
 	public static void showBoard() {
 		listBoards();
 		System.out.println("Give Board id for the database");
@@ -198,6 +240,12 @@ public class Administrator {
 		}
 	}
 	
+	/**
+	 * Méthode qui retourne un plateau contenu dans la BD à partir de son id.
+	 *
+	 * @param id L'id du plateau
+	 * @return Le plateau demandé
+	 */
 	public static Board getBoardWithId(String id) {
 		try(Connection c
 				= DriverManager.getConnection(path)){
@@ -221,6 +269,9 @@ public class Administrator {
 		}
 	}
 	
+	/**
+	 * !A utiliser avec précautions! Méthode qui supprime un plateau de la BD en demandant au préalable son id.
+	 */
 	public static void deleteBoard() {
 		try(Connection c
 				= DriverManager.getConnection(path)){
@@ -241,6 +292,12 @@ public class Administrator {
 		}
 		
 	
+	/**
+	 * Enlève les espaces d'une chaîne de caractère en plus de la mettre totalement en minuscule.
+	 *
+	 * @param string La chaîne contenant des espaces et des majuscules
+	 * @return La chaîne sans espaces et en minuscule.
+	 */
 	private static String removeSpaces(String string) {
         return string.replaceAll("\\s+", "").toLowerCase();
     }

@@ -2,18 +2,37 @@ package sokoban;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TextBoardBuilder.
+ */
 public class TextBoardBuilder implements BoardBuilder{
+	
+	/** The row string. */
 	public ArrayList<String> rowString;
 	
 	
+	/**
+	 * Instantiates a new text board builder.
+	 */
 	public TextBoardBuilder() {
 		rowString = new ArrayList<String>();
 	}
 	
+	/**
+	 * Adds the row.
+	 *
+	 * @param row the row
+	 */
 	public void addRow(String row) {
 		rowString.add(row);
 	}
 	
+	/**
+	 * Check string size.
+	 *
+	 * @throws BuilderException the builder exception
+	 */
 	public void checkStringSize() throws BuilderException{
 		int referencesize = rowString.get(0).length();
 		for(String c : rowString) {
@@ -23,6 +42,12 @@ public class TextBoardBuilder implements BoardBuilder{
 	}
 	}
 	
+	/**
+	 * Builds the.
+	 *
+	 * @return the board
+	 * @throws BuilderException the builder exception
+	 */
 	@Override
 	public Board build() throws BuilderException{
 		checkStringSize();

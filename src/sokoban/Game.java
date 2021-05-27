@@ -4,20 +4,29 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import admin.Administrator;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Game.
+ */
 public class Game {
+	
+	/** The game board. */
 	public static Board gameBoard;
+	
+	/** The Constant in. */
 	private static final Scanner in = new Scanner(System.in);
+	
+	/** The play status. */
 	public static boolean playStatus;
 
 
 
 	
 	/**
-	public Game(Board b) {
-		this.gameBoard = b;
-	}
-	 * @throws BuilderException 
-	*/
+	 * 	public Game(Board b) {
+	 * 		this.gameBoard = b;
+	 * 	}
+	 */
 	
 	
 	public static void Play()  {
@@ -66,6 +75,12 @@ public class Game {
 		
 	}
 	
+	/**
+	 * Command input.
+	 *
+	 * @return the char
+	 * @throws PlayerLeaveException the player leave exception
+	 */
 	public static char commandInput() throws PlayerLeaveException {
 		System.out.println("Enter U or D or L or R :");
 		String input = in.nextLine().trim();
@@ -83,6 +98,13 @@ public class Game {
 		}
 		
 	}
+	
+	/**
+	 * Choose board.
+	 *
+	 * @return the board
+	 * @throws PlayerLeaveException the player leave exception
+	 */
 	public static Board chooseBoard() throws PlayerLeaveException {
 		Administrator.listBoards();
 		System.out.println("Choose your board by typing the id:");
@@ -93,6 +115,12 @@ public class Game {
 		return Administrator.getBoardWithId(input);
 		
 	}
+	
+	/**
+	 * Player move.
+	 *
+	 * @param input the input
+	 */
 	public static void playerMove(char input) {
 		
 		switch(input) {
@@ -124,6 +152,12 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Possible move player.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
 	private static boolean possibleMovePlayer(char input) {
 		boolean allowedmove = true;
 		switch(input) {
@@ -178,6 +212,13 @@ public class Game {
 		return allowedmove;
 	}
 	
+	/**
+	 * Crate in that direction.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return true, if successful
+	 */
 	private static boolean crateInThatDirection(int x, int y) {
 		if(gameBoard.getCaseAt(x, y).getType()==CaseType.BOX) {
 			return true;
@@ -187,6 +228,14 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Possible crate move.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param input the input
+	 * @return true, if successful
+	 */
 	private static boolean possibleCrateMove(int x, int y, char input) {
 		boolean allowedmove = true;
 		switch(input) {
@@ -242,6 +291,13 @@ public class Game {
 		return allowedmove;
 	}
 	
+	/**
+	 * Crate move.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param input the input
+	 */
 	private static void crateMove(int x, int y , char input) {
 		switch(input) {
 		case 'L':
@@ -276,6 +332,11 @@ public class Game {
 	
 	
 	
+	/**
+	 * Win condition.
+	 *
+	 * @return true, if successful
+	 */
 	public static boolean winCondition() {
 		boolean condition=false;
 		int sumCase=0;
