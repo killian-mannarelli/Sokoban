@@ -1,6 +1,6 @@
 package sokoban;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Case.
  */

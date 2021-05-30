@@ -125,7 +125,7 @@ public class Board {
 	}
 	
 	/**
-	 * Adds the box.
+	 * Adds a box.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -135,7 +135,7 @@ public class Board {
 	}
 	
 	/**
-	 * Adds the target.
+	 * Adds a target.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -147,7 +147,7 @@ public class Board {
 	}
 	
 	/**
-	 * Sets the position.
+	 * Sets the player position.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -158,7 +158,7 @@ public class Board {
 	}
 	
 	/**
-	 * Adds the vertical wall.
+	 * Adds a vertical wall.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -178,7 +178,7 @@ public class Board {
 	}
 	
 	/**
-	 * Adds the wall.
+	 * Adds a wall.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -188,7 +188,7 @@ public class Board {
 	}
 	
 	/**
-	 * Adds the horizontal wall.
+	 * Adds a horizontal wall.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -266,8 +266,8 @@ public class Board {
 	/**
 	 * Move player.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x the new row 
+	 * @param y the new col
 	 */
 	public void movePlayer(int x, int y) {
 		getCaseAt(x,y).setType(CaseType.PLAYERPOSITION);
@@ -278,10 +278,10 @@ public class Board {
 	/**
 	 * Move box.
 	 *
-	 * @param oldx the oldx
-	 * @param oldy the oldy
-	 * @param x the x
-	 * @param y the y
+	 * @param oldx the old row
+	 * @param oldy the old col
+	 * @param x the new row
+	 * @param y the new col
 	 */
 	public void moveBox(int oldx, int oldy, int x, int y) {
 		getCaseAt(oldx,oldy).setType(getCaseAt(oldx,oldy).getSecondoptionaltype());
@@ -298,7 +298,7 @@ public class Board {
 	}
 	
 	/**
-	 * Rows to string.
+	 * Convert the Board to an ArrayList of String where a string is a row.
 	 *
 	 * @return the array list
 	 */

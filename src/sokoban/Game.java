@@ -98,7 +98,7 @@ public class Game {
 	}
 	
 	/**
-	 * Choose board.
+	 * Choose board by searching in the DB.
 	 *
 	 * @return the board
 	 * @throws PlayerLeaveException the player leave exception
@@ -115,9 +115,9 @@ public class Game {
 	}
 	
 	/**
-	 * Player move.
+	 * Move the player according to a char input.
 	 *
-	 * @param input the input
+	 * @param input the input (direction)
 	 */
 	public static void playerMove(char input) {
 		
@@ -151,9 +151,9 @@ public class Game {
 	}
 	
 	/**
-	 * Possible move player.
+	 * Check if the can move to a direction according to a char.
 	 *
-	 * @param input the input
+	 * @param input the input (direction)
 	 * @return true, if successful
 	 */
 	private static boolean possibleMovePlayer(char input) {
@@ -211,9 +211,9 @@ public class Game {
 	}
 	
 	/**
-	 * Crate in that direction.
+	 * Check if there is a crate in the direction where the player want to move.
 	 *
-	 * @param x the x
+	 * @param x the row of the case that  
 	 * @param y the y
 	 * @return true, if successful
 	 */
@@ -227,11 +227,11 @@ public class Game {
 	}
 	
 	/**
-	 * Possible crate move.
+	 * Check if the crate move is possible.
 	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param input the input
+	 * @param x the row of the crate case
+	 * @param y the col of the crate case
+	 * @param input the direction
 	 * @return true, if successful
 	 */
 	private static boolean possibleCrateMove(int x, int y, char input) {
@@ -290,11 +290,11 @@ public class Game {
 	}
 	
 	/**
-	 * Crate move.
+	 * Move the crate and move all the other crates in that direction.
 	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param input the input
+	 * @param x the row of the crate case
+	 * @param y the col of the crate case
+	 * @param input the direction
 	 */
 	private static void crateMove(int x, int y , char input) {
 		switch(input) {

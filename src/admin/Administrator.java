@@ -120,7 +120,7 @@ public class Administrator {
 			Class.forName(sqlite_driver);
 			
 		}catch(ClassNotFoundException ex) {
-			System.out.println("* Driver manquant");
+			System.out.println("* Driver missing");
 		}
 		try(Connection c
 				= DriverManager.getConnection(path)) {
@@ -171,7 +171,9 @@ public class Administrator {
 		try(Connection c
 				= DriverManager.getConnection(path)) {
 			
-			
+			if(id.equals("quit")) {
+				throw new PlayerLeaveException("Admin left");
+			}
 			Statement s = c.createStatement();
 			
 			for(String str :b.rowsToString()) {
@@ -185,7 +187,7 @@ public class Administrator {
 			ps.setString(1, id);
 			ps.executeUpdate();
 			
-		} catch (SQLException e) {
+		} catch (SQLException | PlayerLeaveException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -200,6 +202,15 @@ public class Administrator {
 		String fileName = "";
 		System.out.println("Give Boardfile name without .txt");
 		fileName = textEntry.nextLine();
+		try {
+			if(fileName.equals("quit")) {
+				throw new PlayerLeaveException("Admin left");
+			}
+		}
+		catch(PlayerLeaveException ex) {
+			System.out.println(ex.getMessage());
+		}
+		
 		fileName = fileName + ".txt";
 		FileBoardBuilder builder = new FileBoardBuilder(fileName);
 		Board b;
@@ -222,7 +233,9 @@ public class Administrator {
 		String id = textEntry.nextLine();
 		try(Connection c
 				= DriverManager.getConnection(path)){
-			
+			if(id.equals("quit")) {
+				throw new PlayerLeaveException("Admin left");
+			}
 			TextBoardBuilder t= new TextBoardBuilder();
 			PreparedStatement ps = c.prepareStatement("select description from row where name = ?");
 			ps.setString(1, id);
@@ -234,9 +247,13 @@ public class Administrator {
 			Board b = t.build();
 			b.printBoard();
 		}
-		catch (SQLException | BuilderException  e) {
+		catch (SQLException | BuilderException | PlayerLeaveException  e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		catch(IndexOutOfBoundsException e) {
+			System.out.println("Incorrect id please try again");
+			showBoard();
 		}
 	}
 	
@@ -278,6 +295,9 @@ public class Administrator {
 			listBoards();
 			System.out.println("Give the id that you want to delete from the DB : ");
 			String id = textEntry.nextLine();
+			if(id.equals("quit")) {
+				throw new PlayerLeaveException("Admin left");
+			}
 			PreparedStatement ps = c.prepareStatement("delete from row where name = ?");
 			ps.setString(1, id);
 			ps.execute();
@@ -285,7 +305,7 @@ public class Administrator {
 			 ps.setString(1, id);
 			 ps.execute();
 			 System.out.println("Table deleted : " + id);
-		} catch (SQLException e) {
+		} catch (SQLException | PlayerLeaveException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -20,7 +20,7 @@ public class TextBoardBuilder implements BoardBuilder{
 	}
 	
 	/**
-	 * Adds the row.
+	 * Adds a row.
 	 *
 	 * @param row the row
 	 */
@@ -29,7 +29,7 @@ public class TextBoardBuilder implements BoardBuilder{
 	}
 	
 	/**
-	 * Check string size.
+	 * Check string size and cancel the build if a string has not the same size as another.
 	 *
 	 * @throws BuilderException the builder exception
 	 */
@@ -43,10 +43,10 @@ public class TextBoardBuilder implements BoardBuilder{
 	}
 	
 	/**
-	 * Builds the.
+	 * Builds the board using Stringk, each string is a row.
 	 *
-	 * @return the board
-	 * @throws BuilderException the builder exception
+	 * @return the builded board
+	 * @throws BuilderException the builder exception if any string is longer or shorter than the others.
 	 */
 	@Override
 	public Board build() throws BuilderException{
