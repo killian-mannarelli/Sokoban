@@ -68,7 +68,7 @@ public class Administrator {
 	}
 	
 	/**
-	 * A method that create a database .
+	 * A method that create a database
 	 */
 	public static void createDatabase() {
 		String sqlite_driver = "org.sqlite.JDBC";
